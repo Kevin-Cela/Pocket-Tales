@@ -8,7 +8,9 @@ public class autosizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.transform.localScale = new Vector3(canvas.GetComponent<RectTransform>().rect.width, this.transform.localScale.y, this.transform.localScale.z);
+        float screenWidth = canvas.GetComponent<RectTransform>().rect.width;
+        this.GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(screenWidth, this.GetComponentInChildren<RectTransform>().rect.height);
+        //this.transform.localScale = new Vector3(screenWidth, this.transform.localScale.y, this.transform.localScale.z);
     }
 
     // Update is called once per frame
