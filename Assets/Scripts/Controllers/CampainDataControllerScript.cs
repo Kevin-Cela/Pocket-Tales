@@ -6,13 +6,13 @@ using System.Xml.XPath;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DataControllerScript : MonoBehaviour
+public class CampainDataController : MonoBehaviour
 {
     [Header("Save Configuration Properties")]
     [SerializeField] private string saveFileName;
 
-    private StoryData data;
-    public static DataControllerScript Instance { get; private set; }
+    private CampainData data;
+    public static CampainDataController Instance { get; private set; }
 
     private int nextScene = 0;
 
@@ -40,7 +40,7 @@ public class DataControllerScript : MonoBehaviour
                     }
                 }
                 Debug.Log(dataToLoad);
-                data = JsonUtility.FromJson<StoryData>(dataToLoad);
+                data = JsonUtility.FromJson<CampainData>(dataToLoad);
                 Debug.Log(data.Scenes[0].Configuration.NextSceneId);
             } catch (Exception e)
             {
