@@ -39,7 +39,6 @@ public class CampainDataController : MonoBehaviour
                         dataToLoad = reader.ReadToEnd();
                     }
                 }
-                Debug.Log(dataToLoad);
                 data = JsonUtility.FromJson<CampainData>(dataToLoad);
                 Debug.Log(data.Scenes[0].Configuration.NextSceneId);
             } catch (Exception e)
