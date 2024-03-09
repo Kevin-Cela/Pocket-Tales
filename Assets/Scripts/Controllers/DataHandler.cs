@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class DataHandler<T> : MonoBehaviour
+public class DataHandler<T>
 {
     private T dataToHandle;
     private string fullPath;
@@ -16,7 +16,7 @@ public class DataHandler<T> : MonoBehaviour
     {
 
     }
-    public T loadData()
+    public T LoadData()
     {
         if (File.Exists(fullPath))
         {

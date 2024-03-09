@@ -411,7 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bcb64c250791945a598af0cf3a44df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveFileName: ExampleData.json
+  directoryName: Campaign
+  fileName: ExampleData.json
 --- !u!4 &75509840
 Transform:
   m_ObjectHideFlags: 0
@@ -437,6 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 96868526}
   - component: {fileID: 96868527}
+  - component: {fileID: 96868528}
   m_Layer: 5
   m_Name: Text Preview
   m_TagString: Untagged
@@ -479,6 +481,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultScreenSize: 1080
   canvas: {fileID: 614158217}
+--- !u!114 &96868528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96868525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5760832bb6c42c14096c9bfa32c2831c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &135661817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,6 +1663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1025195446}
   - component: {fileID: 1025195447}
+  - component: {fileID: 1025195448}
   m_Layer: 5
   m_Name: Options Preview
   m_TagString: Untagged
@@ -1694,6 +1709,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultScreenSize: 1080
   canvas: {fileID: 614158217}
+--- !u!114 &1025195448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025195445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5d6d250cec636e4ba7b8b12bdb36cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1401326130
 GameObject:
   m_ObjectHideFlags: 0

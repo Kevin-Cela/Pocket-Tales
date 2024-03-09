@@ -5,16 +5,19 @@ using System.IO;
 using System.Xml.XPath;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
-public class CampainDataController : MonoBehaviour
+public class CampaignDataController : MonoBehaviour
 {
     [Header("Save Configuration Properties")]
-    [SerializeField] private string saveFileName;
-
-    private CampainData data;
-    public static CampainDataController Instance { get; private set; }
-
+    [SerializeField] private string directoryName;
+    [SerializeField] private string fileName;
+    private DataHandler<CampaignData> campaignDataHandler;
+    private List<IDataHandler<SceneData>> sceneDataHandleObjects;
+    private CampaignData selectedCampaign;
     private int nextScene = 0;
+    public static CampaignDataController Instance { get; private set; }
+
 
     private void Awake()
     {
@@ -23,35 +26,24 @@ public class CampainDataController : MonoBehaviour
             Debug.Log("An error has occured, more than one instance found!");
         }
         Instance = this;
+        
     }
-    private void LoadAllScenesIntoArray()
+    private void LoadCampaignData()
     {
-        string fullPath = Path.Combine(Application.persistentDataPath, saveFileName);
-        if (File.Exists(fullPath))
+
+        selectedCampaign = campaignDataHandler.LoadData();
+        Debug.Log(selectedCampaign.Scenes[0].Configuration.NextSceneId);
+            
+    }
+    public void LoadScene(int nextScene)
+    {
+        foreach(IDataHandler<SceneData> sceneDataHandler  in sceneDataHandleObjects)
         {
-            try
-            {
-                string dataToLoad = "";
-                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
-                {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        dataToLoad = reader.ReadToEnd();
-                    }
-                }
-                data = JsonUtility.FromJson<CampainData>(dataToLoad);
-                Debug.Log(data.Scenes[0].Configuration.NextSceneId);
-            } catch (Exception e)
-            {
-                Debug.Log(e);
-            }
+            sceneDataHandler.LoadData(selectedCampaign.Scenes[nextScene]);
         }
     }
-    private void LoadScene(int nextScene)
-    {
-        string fullPath = Path.Combine(Application.persistentDataPath, saveFileName);
 
-    }
+
     private void Save()
     {
         //try
@@ -75,8 +67,17 @@ public class CampainDataController : MonoBehaviour
     }
     private void Start()
     {
-        LoadAllScenesIntoArray();
+        campaignDataHandler = new DataHandler<CampaignData>(directoryName, fileName);
+        LoadCampaignData();
+        this.sceneDataHandleObjects = FindAllDataHandleObjects();
         LoadScene(nextScene);
+    }
+
+    private List<IDataHandler<SceneData>> FindAllDataHandleObjects()
+    {
+        IEnumerable<IDataHandler<SceneData>> sceneDataHandlers = FindObjectsOfType<MonoBehaviour>().OfType<IDataHandler<SceneData>>();
+
+        return new List<IDataHandler<SceneData>>(sceneDataHandlers);
     }
 
     private void OnApplicationQuit()
