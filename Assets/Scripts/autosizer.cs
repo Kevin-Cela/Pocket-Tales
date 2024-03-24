@@ -26,7 +26,7 @@ public class autosizer : MonoBehaviour
             else if (currentChild.tag == "Option")
             {
                 float scaleMultiplier = screenWidth / defaultScreenSize;
-                currentChild.GetComponent<RectTransform>().localScale = new Vector3(currentChild.GetComponent<RectTransform>().localScale.y, currentChild.GetComponent<RectTransform>().localScale.y, currentChild.GetComponent<RectTransform>().localScale.z) * scaleMultiplier;
+                currentChild.GetComponent<RectTransform>().localScale = new Vector3(currentChild.GetComponent<RectTransform>().localScale.x, currentChild.GetComponent<RectTransform>().localScale.y, currentChild.GetComponent<RectTransform>().localScale.z) * scaleMultiplier;
                 currentChild.GetComponent<RectTransform>().position = new Vector3(currentChild.GetComponent<RectTransform>().position.x * scaleMultiplier, currentChild.GetComponent<RectTransform>().position.y, currentChild.GetComponent<RectTransform>().position.z);
             }
         }

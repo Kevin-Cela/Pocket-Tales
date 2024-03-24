@@ -15,7 +15,7 @@ public class CampaignDataController : MonoBehaviour
     private DataHandler<CampaignData> campaignDataHandler;
     private List<IDataHandler<SceneData>> sceneDataHandleObjects;
     private CampaignData selectedCampaign;
-    private int nextScene = 0;
+    private int nextScene = 1;
     public static CampaignDataController Instance { get; private set; }
 
 

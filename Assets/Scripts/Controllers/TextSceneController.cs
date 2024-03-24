@@ -8,19 +8,18 @@ public class TextSceneController : MonoBehaviour, IDataHandler<SceneData>
 {
     private SceneData scene;
     private TextMeshProUGUI textDisplayer;
-    private float timestart;
-    private int i;
-    private int length=1;
+    private float timeStart;
+    private int indexOfText;
+    private int lengthOfText=1;
     private bool startTextTransition;
     private bool startTimer;
     public void LoadData(SceneData gameData)
     {
         scene = gameData;
-        i = 0;
-        timestart = Time.timeSinceLevelLoad;
-        Debug.Log(timestart);
-        length = scene.Description.Length;
-        Debug.Log(0.08 - (length / 100.0 > 1 ? 1 : length / 100.0) * 0.03);
+        indexOfText = 0;
+        timeStart = Time.timeSinceLevelLoad;
+        lengthOfText = scene.Description.Length;
+        //Debug.Log(0.08 - (lengthOfText / 100.0 > 1 ? 1 : lengthOfText / 100.0) * 0.03);
         startTextTransition = true;
         startTimer = true;
     }
@@ -31,18 +30,18 @@ public class TextSceneController : MonoBehaviour, IDataHandler<SceneData>
     }
     private void ChangeDisplayText(double timeStep)
     {
-        float timeDifference = Time.timeSinceLevelLoad - timestart;
-        if ((textDisplayer.text != null || textDisplayer.text != "") && i==0)
+        float timeDifference = Time.timeSinceLevelLoad - timeStart;
+        if ((textDisplayer.text != null || textDisplayer.text != "") && indexOfText==0)
         {
             textDisplayer.text = "";
         }
-        if(i<length)
+        if(indexOfText<lengthOfText)
         {
             if (timeDifference >= timeStep)
             {
-                textDisplayer.text += scene.Description[i];
-                i++;
-                timestart = Time.timeSinceLevelLoad;
+                textDisplayer.text += scene.Description[indexOfText];
+                indexOfText++;
+                timeStart = Time.timeSinceLevelLoad;
             }
         }
         else
@@ -52,15 +51,18 @@ public class TextSceneController : MonoBehaviour, IDataHandler<SceneData>
     }
     private void StartSceneTimer(float timeTotal)
     {
-        float timeDifference = Time.timeSinceLevelLoad - timestart;
+        float timeDifference = Time.timeSinceLevelLoad - timeStart;
         if (timeDifference >= timeTotal)
         {
-            if(scene.Type == "Story")
+            startTimer = false;
+
+            if (scene.Type == "Story")
             {
                 CampaignDataController.Instance.LoadScene(scene.Configuration.NextSceneId);
             }
             else if(scene.Type == "Interactive")
             {
+                //TODO
                 CampaignDataController.Instance.LoadScene(2);
             }
 
@@ -69,7 +71,7 @@ public class TextSceneController : MonoBehaviour, IDataHandler<SceneData>
     // Start is called before the first frame update
     void Start()
     {
-        i = 0;
+        indexOfText = 0;
         textDisplayer = this.GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -78,11 +80,11 @@ public class TextSceneController : MonoBehaviour, IDataHandler<SceneData>
     {
         if(startTextTransition == true)
         {
-            ChangeDisplayText(0.08 - (length / 100.0 > 1 ? 1 : length / 100.0) * 0.03);
+            ChangeDisplayText(0.08 - (lengthOfText / 100.0 > 1 ? 1 : lengthOfText / 100.0) * 0.03);
         }
         else if(startTimer == true)
         {
-            StartSceneTimer(15);
+            StartSceneTimer(3);
         }
         
     }
